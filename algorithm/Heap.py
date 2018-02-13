@@ -1,9 +1,7 @@
-#
-# write up_heapify, an algorithm that checks if
+# practicing up_heapify, an algorithm that checks if
 # node i and its parent satisfy the heap
 # property, swapping and recursing if they don't
-#
-# L should be a heap when up_heapify is done
+# running time O(log(n))
 
 
 def up_heapify(l, i):
