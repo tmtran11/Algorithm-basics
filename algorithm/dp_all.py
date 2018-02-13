@@ -1,6 +1,8 @@
+# Algorithm to find shortest distance from all nodes to all other node
+# in running time of O(n^2)
+# Using Dynamic Programming
+
 import math
-
-
 def create_labels(binarytreeG, root):
     labels = {root: {}}
     bfs = [[root, None]]
