@@ -11,6 +11,7 @@
 #
 # And then combine them together in
 # `bridge_edges`
+
 import itertools
 import collections
 
