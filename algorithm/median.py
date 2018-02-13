@@ -1,6 +1,7 @@
+# Algorithm to find median in an unsorted list using in O(nlogn) time
+# Using recursion
+
 import random
-
-
 def minimize_absolute(l):
     if len(l) < 6:
         return sorted(L)[len(L)//2]
