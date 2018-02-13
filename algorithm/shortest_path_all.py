@@ -1,3 +1,6 @@
+# Processing a txt file of data from Marvels. Each line include the character and one of the book in they appear in. Estimated 50000 line
+# Using dynamic programming to find the most relevant character
+
 with open("/Users/FPTShop/Desktop/weight", "r") as myfile:
     lines = myfile.readlines()
     data = []
@@ -13,8 +16,6 @@ with open("/Users/FPTShop/Desktop/weight", "r") as myfile:
                 graph[x[0]][i] = 1
             else:
                 graph[x[0]][i] += 1
-        print('not yet..')
-    print('out')
     # graph with weight
     nodes = list(graph.keys())
     table = []
