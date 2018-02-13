@@ -1,6 +1,6 @@
 # algorithm return highest possible score of any path
 # return None if path not exist
-# using Dynamic Programming
+# using bfs
 
 def feel_the_love(G, i, j):
     bfs = [i]
