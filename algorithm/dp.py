@@ -1,3 +1,6 @@
+# Algorithm to find best flight in shortest allowed time, transit include.
+# Using dynamic Programming
+
 def find_best_flights(flights, origin, destination):
     g = {}
     for x in flights:
