@@ -1,6 +1,7 @@
+# Algorithm to make heap function for updating sorted sequences in O(log(n))
+
 def parent(i):
     return (i-1)//2
-
 
 def left_child(i):
     return 2*i+1
