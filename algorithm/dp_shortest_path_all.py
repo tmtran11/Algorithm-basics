@@ -1,5 +1,6 @@
 # Processing a txt file of data from Marvels. Each line include the character and one of the book in they appear in. Estimated 50000 line
-# Using dynamic programming to find the most relevant character
+# Return the graph of shortest path (number of books in between) of characters to character
+# Using dynamic programming
 
 with open("/Users/FPTShop/Desktop/weight", "r") as myfile:
     lines = myfile.readlines()
