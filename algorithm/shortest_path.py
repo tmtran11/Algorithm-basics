@@ -19,7 +19,7 @@ def one_child(l, i):
     return (left_child(i) < len(l)) and (right_child(i) >= len(l))
 
 
-def up_heapify(i, l, order): #complicated shit. oh, you are so dumb.
+def up_heapify(i, l, order): 
     if parent(i) < 0:
         return
     if l[parent(i)][1] > l[i][1]:
