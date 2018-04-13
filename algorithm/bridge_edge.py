@@ -89,14 +89,6 @@ def next_post_order(s, parent, current, po, p_order):
     p_order[current] = po
     return po+1
 
-
-# This is just one possible solution
-# There are other ways to create a
-# spanning tree, and the grader will
-# accept any valid result.
-# feel free to edit the test to
-# match the solution your program produces
-# the test was right, check order
 def test_post_order():
     s = { 'a': {'c': 'green', 'b': 'green'},
           'b': {'a': 'green', 'd': 'red'},
@@ -148,7 +140,6 @@ def test_number_of_descendants():
 
 
 def next_general_post_order(s, parent, current, po, comp, order):
-    # return whatever, but have to change the general order {})
     green, red = find_all_children(s, parent, current)
     check = po[current]
     for child in green:
@@ -222,7 +213,7 @@ def bridge_edges(g, root):
         lowest = lowest_post_order(s, root, po)[node]
         highest = highest_post_order(s, root, po)[node]
         descendant = number_of_descendants(s, root)[node]
-        print(node, po[node], descendant, lowest, highest)
+        
         if highest <= po[node] and lowest > (po[node]-descendant):
             all.append(node)
     for x in all:
@@ -230,7 +221,7 @@ def bridge_edges(g, root):
             green, red = find_all_children(s, None, root)
             parent = [p for p in s[x] if p not in green and p not in red][0]
             b_edges.append((parent, x))
-    print(b_edges)
+    
     return b_edges
 
 
