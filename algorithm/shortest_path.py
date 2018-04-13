@@ -61,7 +61,7 @@ def dijkstra(G, v):
                     dist_so_far.append([x, final_dist[w[0]] + G[w[0]][x]])
                     order[x] = len(dist_so_far)-1
                     up_heapify(len(dist_so_far)-1, dist_so_far, order)
-                elif final_dist[w[0]] + G[w[0]][x] < dist_so_far[order[x]][1]: #yo, index() is like a fucking NNNN
+                elif final_dist[w[0]] + G[w[0]][x] < dist_so_far[order[x]][1]: 
                     dist_so_far[order[x]] = [x, final_dist[w[0]] + G[w[0]][x]]
                     up_heapify(order[x], dist_so_far, order)
     return final_dist
