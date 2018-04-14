@@ -1,7 +1,5 @@
 from itertools import combinations
 
-print((0.000000000+float(6/9)) > (0.0000000000+float(5/9)))
-
 with open("/Users/FPTShop/Desktop/centrality", "r") as myfile:
     lines = myfile.readlines()
     data = []
