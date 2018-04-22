@@ -1,6 +1,30 @@
 import copy
 import time
 
+# implement a speacial linked list to store O(n^n) space into O(n^2)
+class LinkedList():
+  def __init__(self,index=0):
+    self.index = index
+    self.n = [None]*9
+    if index+1==9:
+      self.link = None
+    else:
+      self.link = LinkedList(index+1)
+      
+  def find(self,seq):
+    if self.n[seq[0]]==None:
+      return False
+    if self.link==None:
+      return True
+    return self.link.find(seq[1:])
+    
+  def add(self,seq):
+    self.n[seq[0]] = 0
+    if self.link==None:
+      return
+    self.link.add(seq[1:])
+
+# Node store all necessary infomation
 class Node:
   def __init__(self,index,d,board,parent,depth):
     self.index = index
@@ -9,6 +33,7 @@ class Node:
     self.parent = parent
     self.depth = depth
 
+# Using heap algorithm to lower down search for minimal node from O(n) to O(log n)
 class heap():
   def __init__(self):
     self.h = []
@@ -79,9 +104,10 @@ def dist(x,n):
   else:
     d += diff//3 + abs(diff//3*3-diff)
   return d
-  
+
+# Manhattan heuristic
 def delta_d(board, a, b):
-  return dist(board[a],b)-dist(board[a],a)+dist(board[b],a)-dist(board[b],b)
+  return dist(board[b],a)-dist(board[b],b)
   
 def test_heap():
   h = heap()
@@ -94,7 +120,8 @@ def test_heap():
   print(h.remove_head().distance)
   print(h.remove_head().distance)
   print(h.remove_head().distance)
-  
+
+# trace back through a chain of linked node
 def trace(node):
   d = {-3:"Up",3:"Down",-1:"Left",1:"Right"}
   path_to_goal = []
@@ -110,12 +137,15 @@ def printf(board):
   print(str(board[3])+" "+str(board[4])+" "+str(board[5])+'\n')
   print(str(board[6])+" "+str(board[7])+" "+str(board[8])+'\n')
 
+# A-star algorithm
 def ast(board):
   start_time = time.time()
   
+  searched = LinkedList()
   frontier = heap()
   d = distance(board)
   node = Node(board.index(0),d,board,None,1)
+  searched.add(board)
   frontier.add(node)
   result = None
   
@@ -128,9 +158,9 @@ def ast(board):
     depth = node.depth
     d = node.distance
     
-    print("distance: "+str(d))
+    #print("distance: "+str(d))
     #print("child: \n")
-    #printf(board)
+    print(board)
     
     if(node.parent!=None):
       indexP = node.parent.index
@@ -141,42 +171,51 @@ def ast(board):
     if index-3>0 and not index-3==indexP:
       td = d+delta_d(board,index,index-3)
       board[index],board[index-3] = board[index-3],board[index]
-      if board==[0,1,2,3,4,5,6,7,8]:
-        result = Node(index-3,td,board,node,depth+1)
-        break
-      frontier.add(Node(index-3,td,board,node,depth+1))
-      nodes_expanded+=1
+      if not searched.find(board):
+        if board==[0,1,2,3,4,5,6,7,8]:
+          result = Node(index-3,td,board,node,depth+1)
+          break
+        searched.add(board)
+        frontier.add(Node(index-3,td,board,node,depth+1))
+        nodes_expanded+=1
       board = prev_board.copy()
       
     if index+3<9 and not index+3==indexP:
       td = d+delta_d(board,index,index+3)
       board[index],board[index+3] = board[index+3],board[index]
-      if board==[0,1,2,3,4,5,6,7,8]:
-        result = Node(index+3,td,board,node,depth+1)
-        break
-      frontier.add(Node(index+3,td,board,node,depth+1))
-      nodes_expanded+=1
+      if not searched.find(board):
+        if board==[0,1,2,3,4,5,6,7,8]:
+          result = Node(index+3,td,board,node,depth+1)
+          break
+        searched.add(board)
+        frontier.add(Node(index+3,td,board,node,depth+1))
+        nodes_expanded+=1
       board = prev_board.copy()
       
     if index//3==(index-1)//3 and not index-1==indexP:
       td = d+delta_d(board, index, index-1)
       board[index],board[index-1] = board[index-1],board[index]
-      if board==[0,1,2,3,4,5,6,7,8]:
-        result = Node(index-1,td,board,node,depth+1)
-        break
-      frontier.add(Node(index-1,td,board,node,depth+1))
-      nodes_expanded+=1
+      if not searched.find(board):
+        if board==[0,1,2,3,4,5,6,7,8]:
+          result = Node(index-1,td,board,node,depth+1)
+          break
+        searched.add(board)
+        frontier.add(Node(index-1,td,board,node,depth+1))
+        nodes_expanded+=1
       board = prev_board.copy()
       
     if index//3==(index+1)//3 and not index+1==indexP:
       td = d+delta_d(board, index, index+1)
       board[index],board[index+1] = board[index+1],board[index]
-      if board==[0,1,2,3,4,5,6,7,8]:
-        result = Node(index+1,td,board,node,depth+1)
-        break
-      frontier.add(Node(index+1,td,board,node,depth+1))
-      nodes_expanded+=1
+      if not searched.find(board):
+        if board==[0,1,2,3,4,5,6,7,8]:
+          result = Node(index+1,td,board,node,depth+1)
+          break
+        searched.add(board)
+        frontier.add(Node(index+1,td,board,node,depth+1))
+        nodes_expanded+=1
       board = prev_board.copy()
+      
     if depth+1>max_search_depth:
       max_search_depth = depth+1
   
@@ -192,6 +231,5 @@ def ast(board):
   print("max_search_depth: ", max_search_depth)
   print("running_time: ",time.time()-start_time)
 
-#test = [6,1,8,4,0,2,7,3,5]
-test = [1,0,2,3,5,8,6,7,4]
-ast(test)
+test = [1,4,2,3,5,8,6,7,0]
+ast(test)1
