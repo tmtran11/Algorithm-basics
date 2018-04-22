@@ -86,6 +86,8 @@ class heap():
       self.up_heapify(self.parent(index))
     return
 
+# find all distance in board
+# is initialize once
 def distance(board):
   d = 0
   for n,x in enumerate(board):
@@ -95,7 +97,8 @@ def distance(board):
     else:
       d += diff//3 + abs(diff//3*3-diff)
   return d
-  
+
+# find distance in new position
 def dist(x,n):
   d = 0
   diff = abs(x-n)
@@ -105,10 +108,12 @@ def dist(x,n):
     d += diff//3 + abs(diff//3*3-diff)
   return d
 
+# change in overall distance
 # Manhattan heuristic
 def delta_d(board, a, b):
   return dist(board[b],a)-dist(board[b],b)
   
+# test heap structure
 def test_heap():
   h = heap()
   h.add(Node(0,10,[],None,1))
@@ -121,6 +126,7 @@ def test_heap():
   print(h.remove_head().distance)
   print(h.remove_head().distance)
 
+  
 # trace back through a chain of linked node
 def trace(node):
   d = {-3:"Up",3:"Down",-1:"Left",1:"Right"}
@@ -132,6 +138,7 @@ def trace(node):
     node = node.parent
   return path_to_goal[::-1], cost_of_path
   
+# print board for testing
 def printf(board):
   print(str(board[0])+" "+str(board[1])+" "+str(board[2])+'\n')
   print(str(board[3])+" "+str(board[4])+" "+str(board[5])+'\n')
@@ -141,10 +148,15 @@ def printf(board):
 def ast(board):
   start_time = time.time()
   
+  # A specilized linked list store visited state, seaching time O(1)
   searched = LinkedList()
+  # A frontier with O(log(n)) search pace
   frontier = heap()
+  # initilize distance of all node to its expected positions
   d = distance(board)
+  # first node, which represents all stat of the initial state
   node = Node(board.index(0),d,board,None,1)
+  
   searched.add(board)
   frontier.add(node)
   result = None
@@ -157,10 +169,6 @@ def ast(board):
     board = node.board.copy()
     depth = node.depth
     d = node.distance
-    
-    #print("distance: "+str(d))
-    #print("child: \n")
-    print(board)
     
     if(node.parent!=None):
       indexP = node.parent.index
