@@ -1,7 +1,7 @@
 # Algorthms for data-mining using graphs.
 # Self-study
 # Under instruction of Michael Littman, https://classroom.udacity.com/courses/cs215
-"""
+
 Using estimated 50000 lines worth of data from Marvel, constructed high-density graphs and use different searching algorithm to to explore special characteristics of this databases.
 
 *Explore centrality:
@@ -29,5 +29,5 @@ https://github.com/tmtran11/Graph_algorithms/blob/master/algorithm/bridge_edge.p
 - The post order of the vertex on that edge must be bigger or equals than the highest post order on that edge, to ensure that there is no other edge connect it with the parental vertices
 - The lowest post order of the vertex must be bigger than the number of descendant minus the post order of that vertex to make sure that there is no other edge connect the descendents vertices
 
-"""
+
 
