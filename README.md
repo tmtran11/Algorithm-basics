@@ -19,7 +19,7 @@ https://github.com/tmtran11/Graph_algorithms/blob/master/algorithm/dp_shortest_p
 - For each search, find the vertex which currently has the shortest distance to v and finalize its shortest distance to s. The search is in O(1), because the heap is constantly sorted in O(log(n)) everytime a value is remove or add.
 - From that vertex, find it neighbor whose the possible shortest path to v is update by dynamic programming in next searches
 
-*Find bridge edges
+*Find bridge edges:
 https://github.com/tmtran11/Graph_algorithms/blob/master/algorithm/bridge_edge.py
 - Create a rooted spanning tree, with green edges for tree’s edges and red edge for other edge in the graph that’s not suitable for the tree structure.
 - Compute post order, consider only the green edges.
